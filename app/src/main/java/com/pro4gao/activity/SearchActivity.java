@@ -8,6 +8,9 @@ import android.view.View;
 import com.pro4gao.R;
 import com.pro4gao.base.BaseActivity;
 
+import rx.Observable;
+import rx.Subscriber;
+
 public class SearchActivity extends BaseActivity {
 
 
@@ -26,6 +29,18 @@ public class SearchActivity extends BaseActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        Observable<String> text = Observable.create(new Observable.OnSubscribe<String>() {
+
+            @Override
+            public void call(Subscriber<? super String> subscriber) {
+
+            }
+        });
+
+        String[] strings = {"test1","test1","test1","test1"};
+        Observable<String> from = Observable.from(strings);
+        Observable<String> test1 = Observable.just("test1");
     }
 
     @Override
