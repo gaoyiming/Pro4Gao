@@ -12,8 +12,30 @@
     tools:context="com.pro4gao.MainActivity"
     tools:showIn="@layout/app_bar_main">
 
+    <ImageView
+        android:background="#666666"
+        android:id="@+id/iv_buttom_subject"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="58dp"
+        android:layout_marginRight="16dp"
+        android:clickable="true"
+         />
+
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!1232" />
-</RelativeLayout>
+        android:visibility="visible"
+        android:id="@+id/tv_tougao_subject"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:background="#000000"
+        android:gravity="center_vertical"
+        android:text="投稿来一发..."
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+
+    </RelativeLayout>

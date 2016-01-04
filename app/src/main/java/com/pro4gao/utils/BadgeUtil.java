@@ -1,4 +1,4 @@
-package com.pro4gao.activity.utils;
+package com.pro4gao.utils;
 
 /**
  * Created by Liuxu on 15/12/16.

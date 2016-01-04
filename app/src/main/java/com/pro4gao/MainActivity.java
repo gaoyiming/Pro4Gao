@@ -10,12 +10,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.pro4gao.activity.SearchActivity;
+import com.pro4gao.api.RetroApi;
 import com.pro4gao.base.BaseActivity;
+
+import retrofit.Callback;
+import retrofit.Response;
+import retrofit.Retrofit;
 
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
+    String BASE_URL = "http://124.207.115.50:8011/mobile/";
 
     @Override
     public void onBackPressed() {
@@ -26,6 +30,9 @@ public class MainActivity extends BaseActivity
             super.onBackPressed();
         }
     }
+public void hah(){
+   // rx.Observable.just("hah").map(s-> System.out.print("sdfj") );
+}
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -86,9 +93,26 @@ public class MainActivity extends BaseActivity
             public void onClick(View view) {
 //                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
 //                        .setAction("Action", null).show();
-                intent2Activity(SearchActivity.class);
+               // intent2Activity(SearchActivity.class);
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(BASE_URL)
+                        .build();
+                RetroApi retroApi = retrofit.create(RetroApi.class);
+                retroApi.login("18501955720", "123456", new Callback() {
+                    @Override
+                    public void onResponse(Response response, Retrofit retrofit) {
+                        int statusCode = response.code();
+                        Object body = response.body();
+                    }
+
+                    @Override
+                    public void onFailure(Throwable t) {
+
+                    }
+                });
             }
-        });
+});
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
