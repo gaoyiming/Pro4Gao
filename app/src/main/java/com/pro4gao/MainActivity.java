@@ -1,9 +1,7 @@
 package com.pro4gao;
 
-import android.nfc.Tag;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -13,20 +11,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.pro4gao.activity.SearchActivity;
+import com.pro4gao.api.APIUtil;
 import com.pro4gao.api.BaseBean;
-import com.pro4gao.api.RetroApi;
 import com.pro4gao.base.BaseActivity;
 
-import java.io.IOException;
 import java.util.HashMap;
 
-import retrofit.Call;
-import retrofit.Callback;
-import retrofit.GsonConverterFactory;
-import retrofit.JacksonConverterFactory;
-import retrofit.Response;
-import retrofit.Retrofit;
+import rx.Observer;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -104,29 +97,44 @@ public class MainActivity extends BaseActivity
 //                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
 //                        .setAction("Action", null).show();
 //                intent2Activity(SearchActivity.class);
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(BASE_URL)
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-
-                RetroApi retroApi = retrofit.create(RetroApi.class);
-                HashMap<String, String> stringStringHashMap = new HashMap<>();
-                stringStringHashMap.put("keyword","足疗");
-              //  final Call login = retroApi.login(stringStringHashMap);
-                Call<BaseBean> stringCall = retroApi.HotWord();
-                stringCall.enqueue(new Callback<BaseBean>() {
+                APIUtil.getInstance().getZhixueApi().HotWord()
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .unsubscribeOn(Schedulers.io())
+                        .subscribe(new Observer<BaseBean>() {
                     @Override
-                    public void onResponse(Response<BaseBean> response, Retrofit retrofit) {
-                        BaseBean body = response.body();
-                        Object data = body.getData();
-                        String s = response.toString();
+                    public void onCompleted() {
+                        Log.e(TAG,"onCompleted");
                     }
 
                     @Override
-                    public void onFailure(Throwable t) {
-                        Log.e("Error", t.getMessage());
+                    public void onError(Throwable e) {
+                        Log.e(TAG,"noonCompleted");
+                    }
+
+                    @Override
+                    public void onNext(BaseBean baseBean) {
+                        Log.e(TAG,baseBean.toString());
                     }
                 });
+                HashMap<String, String> stringStringHashMap = new HashMap<>();
+                stringStringHashMap.put("keyword","足疗");
+
+
+//                Call<BaseBean> stringCall = retroApi.HotWord();
+//                stringCall.enqueue(new Callback<BaseBean>() {
+//                    @Override
+//                    public void onResponse(Response<BaseBean> response, Retrofit retrofit) {
+//                        BaseBean body = response.body();
+//                        Object data = body.getData();
+//                        String s = response.toString();
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Throwable t) {
+//                        Log.e("Error", t.getMessage());
+//                    }
+//                });
 //                new Thread(){
 //                    @Override
 //                    public void run() {

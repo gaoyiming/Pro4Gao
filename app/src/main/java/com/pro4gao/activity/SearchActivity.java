@@ -1,18 +1,13 @@
 package com.pro4gao.activity;
 
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.pro4gao.R;
-import com.pro4gao.api.BaseBean;
 import com.pro4gao.api.RetroApi;
 import com.pro4gao.base.BaseActivity;
 
-import retrofit.Call;
-import retrofit.Callback;
-import retrofit.Response;
 import retrofit.Retrofit;
 import rx.Observable;
 import rx.Subscriber;
@@ -39,18 +34,8 @@ public class SearchActivity extends BaseActivity {
                         .build();
 
                 RetroApi service = retrofit.create(RetroApi.class);
-                Call<BaseBean> stringCall = service.HotWord();
-                stringCall.enqueue(new Callback<BaseBean>() {
-                    @Override
-                    public void onResponse(Response<BaseBean> response, Retrofit retrofit) {
-                        String s = response.toString();
-                    }
+              //  Call<BaseBean> stringCall = service.HotWord();
 
-                    @Override
-                    public void onFailure(Throwable t) {
-
-                    }
-                });
             }
         });
 
