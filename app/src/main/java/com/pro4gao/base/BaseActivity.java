@@ -19,8 +19,9 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     private boolean mAllowFullScreen = false;
 
     public abstract void initWidget();
+    public abstract void initData();
 
-    public abstract void widgetClick(View v);
+    public abstract void widgetClick();
 
     public void setAllowFullScreen(boolean allowFullScreen) {
         this.mAllowFullScreen = allowFullScreen;
@@ -28,7 +29,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 
     @Override
     public void onClick(View v) {
-        widgetClick(v);
+
     }
 
     @Override
@@ -41,6 +42,8 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         }
         AppManager.getAppManager().addActivity(this);
         initWidget();
+        initData();
+        widgetClick();
     }
 
     public void intent2Activity(Class clazz) {
