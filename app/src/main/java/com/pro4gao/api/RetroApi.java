@@ -1,6 +1,8 @@
 package com.pro4gao.api;
 
 import retrofit.http.GET;
+import retrofit.http.Header;
+import retrofit.http.Headers;
 import rx.Observable;
 
 /**
@@ -11,9 +13,11 @@ public interface RetroApi {
 //    @POST("index.php?act=goods&op=goods_list")
 //    Call<String> login(@QueryMap Map<String, String> info);
 
-    @GET("index.php?act=services_class")
+
     //Call<BaseBean> HotWord();
-    Observable<BaseBean> HotWord();
+   @Headers("Cache-Control: public, max-age=3600")
+     @GET("index.php?act=services_class")
+     Observable<BaseBean> HotWord();
 
 
 }

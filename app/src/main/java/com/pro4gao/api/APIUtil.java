@@ -12,6 +12,7 @@ import com.squareup.okhttp.Response;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;
@@ -31,10 +32,7 @@ public class APIUtil {
 
     //构造函数
     private APIUtil() {
-        client = new OkHttpClient();
-        client.networkInterceptors().add(interceptor);
-
-//setup cache
+        //setup cache
         File httpCacheDirectory = new File(UIUtils.getContext().getCacheDir(), "responses");
 
         Cache cache = null;
@@ -43,6 +41,10 @@ public class APIUtil {
         } catch (Exception e) {
             Log.e("OKHttp", "Could not create http cache", e);
         }
+        client = new OkHttpClient();
+        client.networkInterceptors().add(interceptor);
+
+
 
 
 //add cache to the client
@@ -69,16 +71,35 @@ public class APIUtil {
     public RetroApi getZhixueApi() {
         return Retroapi;
     }
-
+//    private static final Interceptor REWRITE_CACHE_CONTROL_INTERCEPTOR = new Interceptor() {
+//        @Override public Response intercept(Chain chain) throws IOException {
+//            Response originalResponse = chain.proceed(chain.request());
+//            if (AppUtil.isNetworkReachable(UIUtils.getContext())) {
+//                int maxAge = 60; // read from cache for 1 minute
+//                return originalResponse.newBuilder()
+//                        .header("Cache-Control", "public, max-age=" + maxAge)
+//                        .build();
+//            } else {
+//                int maxStale = 60 * 60 * 24 * 28; // tolerate 4-weeks stale
+//                return originalResponse.newBuilder()
+//                        .header("Cache-Control", "public, only-if-cached, max-stale=" + maxStale)
+//                        .build();
+//            }
+//        }
     public Interceptor interceptor = new Interceptor() {
         @Override
         public Response intercept(Chain chain) throws IOException {
             Request request = chain.request();
             if (!AppUtil.isNetworkReachable(UIUtils.getContext())) {
                 request = request.newBuilder()
-                        .cacheControl(CacheControl.FORCE_CACHE)
-                        .url(BASE_URL).build();
+                        .cacheControl(new CacheControl.Builder()
+                                .onlyIfCached()
+                                .maxAge(60 * 60, TimeUnit.SECONDS)
+                                .build())
 
+
+                        .url(BASE_URL).build();
+                Log.e("OKHttp", "meiyouwangluo");
             }
 
             Response response = chain.proceed(request);

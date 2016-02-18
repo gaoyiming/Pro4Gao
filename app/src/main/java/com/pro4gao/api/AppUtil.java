@@ -13,9 +13,7 @@ public class AppUtil {
         ConnectivityManager cm = (ConnectivityManager) context
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo current = cm.getActiveNetworkInfo();
-        if (current == null) {
-            return false;
-        }
-        return (current.isAvailable());
+
+        return current!=null;
     }
 }
