@@ -5,10 +5,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Property;
 
 import com.pro4gao.R;
-import com.pro4gao.api.RetroApi;
 import com.pro4gao.base.BaseActivity;
 
-import retrofit.Retrofit;
 import rx.Observable;
 import rx.Subscriber;
 
@@ -26,17 +24,17 @@ public class SearchActivity extends BaseActivity {
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 
-        fab.setOnClickListener(view -> {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-            Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl(BASE_URL)
-                    .build();
-
-            RetroApi service = retrofit.create(RetroApi.class);
-            //  Call<BaseBean> stringCall = service.HotWord();
-
-        });
+//        fab.setOnClickListener(view -> {
+////                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+////                        .setAction("Action", null).show();
+//            Retrofit retrofit = new Retrofit.Builder()
+//                    .baseUrl(BASE_URL)
+//                    .build();
+//
+//            RetroApi service = retrofit.create(RetroApi.class);
+//            //  Call<BaseBean> stringCall = service.HotWord();
+//
+//        });
 
         Observable<String> text = Observable.create(new Observable.OnSubscribe<String>() {
 
@@ -49,7 +47,7 @@ public class SearchActivity extends BaseActivity {
         String[] strings = {"test1", "test1", "test1", "test1"};
         Observable<String> from = Observable.from(strings);
         Observable<String> test1 = Observable.just("test1");
-        Observable<String> String = test1.map((String s)->s);
+       // Observable<String> String = test1.map((String s)->s);
         String[] array = {"a", "b", "c"};
 
      

@@ -24,10 +24,14 @@ public class APIUtil {
     private static APIUtil mInstance;
     //此前定义的接口的实例
     private RetroApi Retroapi;
+    public RetroApi getZhixueApi() {
+        return Retroapi;
+    }
     //我们的主域名
     private static final String BASE_URL = "http://124.207.115.50:8011/mobile/";
-    private OkHttpClient client;
 
+
+    private OkHttpClient client;
 
     //构造函数
     private APIUtil() {
@@ -69,10 +73,6 @@ public class APIUtil {
         return mInstance;
     }
 
-    public RetroApi getZhixueApi() {
-        return Retroapi;
-    }
-
     private final Interceptor LoggingInterceptor = new Interceptor() {
         @Override
         public Response intercept(Chain chain) throws IOException {
@@ -104,6 +104,9 @@ public class APIUtil {
                         .removeHeader("Pragma")
                         .build();
             } else {
+                for (int i = 0; i <5 ; i++) {
+                    System.out.print(i);
+                }
                 int maxStale = 60 * 60 * 24 * 28; // tolerate 4-weeks stale
                 return  response.newBuilder()
                         .header("Cache-Control", "public, only-if-cached, max-stale=" + maxStale)
@@ -113,4 +116,5 @@ public class APIUtil {
 
         }
     };
+
 }

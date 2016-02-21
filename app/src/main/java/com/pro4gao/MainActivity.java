@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 
 import com.pro4gao.api.APIUtil;
 import com.pro4gao.api.BaseBean;
@@ -86,8 +87,18 @@ public class MainActivity extends BaseActivity
     public void initWidget() {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+//        setSupportActionBar(toolbar);
+        Button themeactivity = (Button) findViewById(R.id.themeactivity);
+        themeactivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                    //  ChangeToDay();
+                    ChangeToNight();
+                    recreateOnResume();
+
+            }
+        });
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
 
@@ -181,7 +192,15 @@ public class MainActivity extends BaseActivity
     public void initData() {
 
     }
-
+    public void changeViewMode() {
+//        boolean isNight = getApplication().isNightMode();
+//        if (isNight)
+//            ChangeToDay();
+//        else
+//            ChangeToNight();
+//
+//        recreate();
+    }
     @Override
     public void widgetClick() {
 

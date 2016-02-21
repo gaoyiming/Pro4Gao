@@ -98,4 +98,6 @@
     <string name="time">时间</string>
     <string name="data">日期</string>
     <string name="timeactivity">timeactivity</string>
+    <string name="themeactivity">切换主题</string>
+    <string name="colorchange">颜色变化</string>
 </resources>

@@ -12,11 +12,14 @@ public class BaseApplication extends Application {
 	private static int mainThreadId;
 	private static Looper mainThreadLooper;
 	private static Thread mainThread;
-	
+	private static BaseApplication mBaseApp;
+	private boolean isNightMode;
+
 	@Override
 	public void onCreate() {
 		super.onCreate();
 		this.context = getApplicationContext();
+
 		handler = new Handler();
 		this.mainThreadId = android.os.Process.myTid();
 		this.mainThreadLooper = getMainLooper();
@@ -42,7 +45,13 @@ public class BaseApplication extends Application {
 	public static Thread getMainThread() {
 		return mainThread;
 	}
-	
-	
 
+
+	public boolean isNightMode() {
+		return false;
+	}
+
+	public void setIsNightMode(boolean isNightMode) {
+		this.isNightMode = isNightMode;
+	}
 }
