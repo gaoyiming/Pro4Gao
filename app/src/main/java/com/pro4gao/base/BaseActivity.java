@@ -51,7 +51,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
             setTheme(R.style.AppTheme_night);
         else
             setTheme(R.style.AppTheme_day);
-
+        setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
 
         mIsAddedView = false;
