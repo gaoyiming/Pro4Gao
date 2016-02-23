@@ -1,5 +1,6 @@
 package com.pro4gao;
 
+import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -90,6 +91,14 @@ public class MainActivity extends BaseActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
         Button themeactivity = (Button) findViewById(R.id.themeactivity);
+        Button animator = (Button) findViewById(R.id.animator);
+        animator.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,AnimatorActivity.class);
+                startActivity(intent);
+            }
+        });
         themeactivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
