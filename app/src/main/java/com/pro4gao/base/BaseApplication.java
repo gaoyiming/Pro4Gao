@@ -4,9 +4,15 @@ import android.app.Application;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.v7.app.AppCompatDelegate;
+
+import com.morgoo.droidplugin.PluginHelper;
 
 public class BaseApplication extends Application {
-	
+	static {
+		AppCompatDelegate.setDefaultNightMode(
+				AppCompatDelegate.MODE_NIGHT_NO);
+	}
 	private static Context context;
 	private static Handler handler;
 	private static int mainThreadId;
@@ -19,7 +25,8 @@ public class BaseApplication extends Application {
 	public void onCreate() {
 		super.onCreate();
 		this.context = getApplicationContext();
-
+		// 这里必须在super.onCreate方法之后，顺序不能变
+		PluginHelper.getInstance().applicationOnCreate(getBaseContext());
 		handler = new Handler();
 		this.mainThreadId = android.os.Process.myTid();
 		this.mainThreadLooper = getMainLooper();
@@ -53,5 +60,11 @@ public class BaseApplication extends Application {
 
 	public void setIsNightMode(boolean isNightMode) {
 		this.isNightMode = isNightMode;
+	}
+
+	@Override
+	protected void attachBaseContext(Context base) {
+		PluginHelper.getInstance().applicationAttachBaseContext(base);
+		super.attachBaseContext(base);
 	}
 }

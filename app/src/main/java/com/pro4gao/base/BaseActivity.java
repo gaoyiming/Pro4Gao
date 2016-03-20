@@ -7,6 +7,7 @@ import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -103,9 +104,12 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     }
 
     public void ChangeToNight() {
-        mBaseApp.setIsNightMode(true);
-        initNightView();
-        mNightView.setBackgroundResource(R.color.night_mask);
+        getDelegate().setLocalNightMode(
+                AppCompatDelegate.MODE_NIGHT_YES);
+        recreate();
+      //  mBaseApp.setIsNightMode(true);
+       // initNightView();
+    //    mNightView.setBackgroundResource(R.color.night_mask);
     }
     @Override
     protected void onDestroy() {

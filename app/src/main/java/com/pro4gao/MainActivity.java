@@ -16,6 +16,7 @@ import android.widget.Button;
 import com.pro4gao.api.APIUtil;
 import com.pro4gao.api.BaseBean;
 import com.pro4gao.base.BaseActivity;
+import com.pro4gao.load.LoadApkActivity;
 
 import java.util.HashMap;
 
@@ -26,7 +27,8 @@ import rx.schedulers.Schedulers;
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     String BASE_URL = "http://124.207.115.50:8011/mobile/";
-    public static final String TAG ="MainActivity" ;
+    public static final String TAG = "MainActivity";
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -92,20 +94,17 @@ public class MainActivity extends BaseActivity
 //        setSupportActionBar(toolbar);
         Button themeactivity = (Button) findViewById(R.id.themeactivity);
         Button animator = (Button) findViewById(R.id.animator);
-        animator.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,AnimatorActivity.class);
-                startActivity(intent);
-            }
-        });
+//        animator.setOnClickListener(v -> {
+//            Intent intent = new Intent(MainActivity.this, AnimatorActivity.class);
+//            startActivity(intent);
+//        });
         themeactivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                    //  ChangeToDay();
-                    ChangeToNight();
-                    recreateOnResume();
+                //  ChangeToDay();
+                ChangeToNight();
+             //   recreateOnResume();
 
             }
         });
@@ -115,31 +114,33 @@ public class MainActivity extends BaseActivity
 
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, LoadApkActivity.class);
+                startActivity(intent);
 //                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
 //                        .setAction("Action", null).show();
 //                intent2Activity(SearchActivity.class);
-                APIUtil.getInstance().getZhixueApi().HotWord()
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .unsubscribeOn(Schedulers.io())
-                        .subscribe(new Observer<BaseBean>() {
-                    @Override
-                    public void onCompleted() {
-                        Log.e(TAG,"onCompleted");
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Log.e(TAG,"noonCompleted");
-                    }
-
-                    @Override
-                    public void onNext(BaseBean baseBean) {
-                        Log.e(TAG,baseBean.toString());
-                    }
-                });
-                HashMap<String, String> stringStringHashMap = new HashMap<>();
-                stringStringHashMap.put("keyword","足疗");
+//                APIUtil.getInstance().getZhixueApi().HotWord()
+//                        .subscribeOn(Schedulers.io())
+//                        .observeOn(AndroidSchedulers.mainThread())
+//                        .unsubscribeOn(Schedulers.io())
+//                        .subscribe(new Observer<BaseBean>() {
+//                            @Override
+//                            public void onCompleted() {
+//                                Log.e(TAG, "onCompleted");
+//                            }
+//
+//                            @Override
+//                            public void onError(Throwable e) {
+//                                Log.e(TAG, "noonCompleted");
+//                            }
+//
+//                            @Override
+//                            public void onNext(BaseBean baseBean) {
+//                                Log.e(TAG, baseBean.toString());
+//                            }
+//                        });
+//                HashMap<String, String> stringStringHashMap = new HashMap<>();
+//                stringStringHashMap.put("keyword", "足疗");
 
 
 //                Call<BaseBean> stringCall = retroApi.HotWord();
@@ -185,7 +186,7 @@ public class MainActivity extends BaseActivity
 //                    }
 //                });
             }
-});
+        });
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -202,6 +203,7 @@ public class MainActivity extends BaseActivity
     public void initData() {
 
     }
+
     public void changeViewMode() {
 //        boolean isNight = getApplication().isNightMode();
 //        if (isNight)
@@ -211,6 +213,7 @@ public class MainActivity extends BaseActivity
 //
 //        recreate();
     }
+
     @Override
     public void widgetClick() {
 

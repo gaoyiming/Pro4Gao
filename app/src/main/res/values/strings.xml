@@ -101,4 +101,5 @@
     <string name="themeactivity">切换主题</string>
     <string name="colorchange">颜色变化</string>
     <string name="aniactivity">动画</string>
+    <string name="loadapk">加载apk</string>
 </resources>
